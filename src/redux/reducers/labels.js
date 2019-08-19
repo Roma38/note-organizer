@@ -1,6 +1,6 @@
 import { ADD_LABEL } from "../actions/labels";
 
-const initialState = localStorage.getItem("labels") || [];
+const initialState = [];
 
 export const labelsReducer = (state = initialState, { type, payload }) => {
   switch (type) {

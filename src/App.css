@@ -1,3 +1,11 @@
 .App {
   text-align: center;
 }
+
+.icon.category__popup {
+  display: none;
+}
+
+.category:hover>.icon.category__popup {
+  display: inline-block;
+}
