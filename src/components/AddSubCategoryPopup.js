@@ -37,7 +37,7 @@ export function AddSubCategoryPopup({ parentId }) {
             placeholder="Category name"
             onChange={(e, data) => setCategoryName(data.value)}
           />
-          <Button basic color="blue" content="Add" />
+          <Button basic color="blue" content="Add" disabled={!categoryName} />
         </form>
       )}
     </>

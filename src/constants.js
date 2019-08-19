@@ -1,4 +1,6 @@
-export const options = [
+import { v4 } from "node-uuid";
+
+export const colorOptions = [
   { key: 1, text: "red", value: "red" },
   { key: 2, text: "orange", value: "orange" },
   { key: 3, text: "yellow", value: "yellow" },
@@ -12,4 +14,10 @@ export const options = [
   { key: 11, text: "grey", value: "grey" },
   { key: 12, text: "black", value: "black" },
   { key: 13, text: "brown", value: "brown" }
+];
+
+export const defaultLabels = [
+  { id: v4(), name: "Label_1" },
+  { id: v4(), name: "Label_2" },
+  { id: v4(), name: "Label_3" }
 ];

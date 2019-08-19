@@ -6,7 +6,7 @@ import { Card } from "semantic-ui-react";
 import { Grid } from "semantic-ui-react";
 
 import { HeaderComponent as Header } from "./components/Header";
-import { Sidebar } from "./components/Sidebar";
+import { SideBar } from "./components/SideBar";
 import { AddNoteCard } from "./components/AddNoteCard";
 import { NoteCard } from "./components/NoteCard";
 
@@ -19,7 +19,7 @@ function App() {
       <Grid divided>
         <Grid.Row>
           <Grid.Column as="aside" width={4}>
-            <Sidebar />
+            <SideBar />
           </Grid.Column>
           <Grid.Column as="main" width={12}>
             <Card.Group>

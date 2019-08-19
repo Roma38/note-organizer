@@ -6,15 +6,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "node-uuid";
 
 import { addNote } from "../redux/actions/notes";
-import { options as colorOptions } from "../constants";
-
+import { colorOptions } from "../constants";
 
 export function AddNoteCard() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [color, setColor] = useState();
   const [noteCategories, setNoteCategories] = useState([]);
+  const [noteLabels, setNoteLabels] = useState([]);
   const categories = useSelector(state => state.categories);
+  const labels = useSelector(state => state.labels);
   const dispatch = useDispatch();
 
   const categoriesOptions = [];
@@ -53,11 +54,20 @@ export function AddNoteCard() {
 
   const addNoteHandler = () => {
     dispatch(
-      addNote({ id: v4(), title, text, color, categories: noteCategories })
+      addNote({
+        id: v4(),
+        title,
+        text,
+        color,
+        labels: noteLabels,
+        categories: noteCategories
+      })
     );
     setTitle("");
     setText("");
+    setColor(null);
     setNoteCategories([]);
+    setNoteLabels([]);
   };
 
   return (
@@ -95,6 +105,19 @@ export function AddNoteCard() {
             options={categoryList()}
             value={noteCategories}
             onChange={(e, data) => setNoteCategories(data.value)}
+          />
+          <Dropdown
+            placeholder="Label"
+            fluid
+            multiple
+            selection
+            options={labels.map(label => ({
+              key: label.id,
+              text: label.name,
+              value: label.id
+            }))}
+            value={noteLabels}
+            onChange={(e, data) => setNoteLabels(data.value)}
           />
         </Card.Description>
       </Card.Content>
