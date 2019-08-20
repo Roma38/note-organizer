@@ -1,10 +1,15 @@
 import React from "react";
 import { Button, Card, Label } from "semantic-ui-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { setFilter } from "../redux/actions/notesFilter";
 
 export function NoteCard(props) {
   const labels = useSelector(state => state.labels);
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.filter);
+
   const { note } = props;
 
   const renderLabel = labelId => {
@@ -13,6 +18,15 @@ export function NoteCard(props) {
       <Label
         key={label.id}
         as="a"
+        onClick={() =>
+          dispatch(
+            setFilter({
+              type: "labels",
+              id: label.id
+            })
+          )
+        }
+        active={filter.type === "labels" && label.id === filter.id}
         color={note.color}
         content={label.name}
         tag

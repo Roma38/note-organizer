@@ -9,6 +9,7 @@ import { NoteCard } from "./NoteCard";
 
 export function HomePage() {
   const notes = useSelector(state => state.notes);
+  const filter = useSelector(state => state.filter);
 
   return (
     <Grid divided>
@@ -19,9 +20,13 @@ export function HomePage() {
         <Grid.Column as="main" width={12}>
           <Card.Group>
             <AddNoteCard />
-            {notes.map(note => (
-              <NoteCard key={note.id} note={note} />
-            ))}
+            {notes
+              .filter(note =>
+                filter.type ? note[filter.type].includes(filter.id) : true
+              ) //TODO сделать чтоб подкатегории не отфильтровывались
+              .map(note => (
+                <NoteCard key={note.id} note={note} />
+              ))}
           </Card.Group>
         </Grid.Column>
       </Grid.Row>

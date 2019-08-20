@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { List, Button, Input, Popup } from "semantic-ui-react";
 import { v4 } from "node-uuid";
 
-import {addLabel} from "../redux/actions/labels"
-
+import { addLabel } from "../redux/actions/labels";
+import { setFilter } from "../redux/actions/notesFilter";
 
 export function LabelsList() {
   const [labelName, setLabelName] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const labels = useSelector(state => state.labels);
-
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const addLabelHandler = e => {
@@ -18,12 +18,29 @@ export function LabelsList() {
     dispatch(addLabel({ id: v4(), name: labelName }));
     setLabelName("");
   };
-  
+
   return (
     <>
-      <List>
+      <List link>
         {labels.map(label => (
-          <List.Item key={label.id}>{label.name}</List.Item>
+          <List.Item
+            active={filter.type === "labels" && label.id === filter.id}
+            key={label.id}
+          >
+            <span
+              onClick={() =>
+                dispatch(
+                  setFilter({
+                    type: "labels",
+                    id: label.id
+                  })
+                )
+              }
+              className="label-name"
+            >
+              {label.name}
+            </span>
+          </List.Item>
         ))}
       </List>
       <Popup

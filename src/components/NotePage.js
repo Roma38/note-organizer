@@ -52,7 +52,7 @@ export function NotePage({ match }) {
           )}
         </Header>
         {isEditing ? (
-          <Input                        // TODO наверное, нужно использовать textarea
+          <Input // TODO наверное, нужно использовать textarea
             value={text}
             placeholder="Text"
             onChange={(e, data) => setText(data.value)}
@@ -72,7 +72,6 @@ export function NotePage({ match }) {
         {isEditing ? (
           <Dropdown
             placeholder="Category"
-            
             multiple
             search
             selection
@@ -91,7 +90,6 @@ export function NotePage({ match }) {
         {isEditing ? (
           <Dropdown
             placeholder="Label"
-            
             multiple
             selection
             options={labelsJSON.map(label => ({
@@ -107,7 +105,6 @@ export function NotePage({ match }) {
           note.labels.map(labelId => (
             <Label
               key={labelId}
-              as="a"
               color={note.color}
               content={labelsJSON.find(label => label.id === labelId).name}
               tag

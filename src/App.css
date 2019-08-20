@@ -9,3 +9,11 @@
 .category:hover>.icon.category__popup {
   display: inline-block;
 }
+
+.category span, .label-name {
+  cursor: pointer;
+}
+
+.category span:hover, .label-name:hover {
+  color: black;
+}

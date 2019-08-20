@@ -10,28 +10,37 @@ export function AddSubCategoryPopup({ parentId }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const addCategoryHandler = e => {
-    e.preventDefault();
+  const addCategoryHandler = event => {
+    event.preventDefault();
     dispatch(addCategory({ id: v4(), name: categoryName, parentId }));
     setCategoryName("");
     setIsPopupOpen(false);
   };
 
+  const iconClickHandler = event => {
+    event.stopPropagation();
+    setIsPopupOpen(!isPopupOpen);
+  };
+
   return (
     <>
       <Popup
+        /* onClick={e => e.stopPropagation()} */
         content="Add subcategory"
         trigger={
           <Icon
             className="category__popup"
-            onClick={() => setIsPopupOpen(!isPopupOpen)}
+            onClick={iconClickHandler}
             link
             name={isPopupOpen ? "caret up" : "caret down"}
           />
         }
       />
       {isPopupOpen && (
-        <form onSubmit={addCategoryHandler}>
+        <form
+          onSubmit={addCategoryHandler}
+          onClick={e => e.stopPropagation()}
+        >
           <Input
             value={categoryName}
             placeholder="Category name"
