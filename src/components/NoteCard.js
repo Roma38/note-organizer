@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Label } from "semantic-ui-react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export function NoteCard(props) {
   const labels = useSelector(state => state.labels);
@@ -25,10 +26,10 @@ export function NoteCard(props) {
         <Card.Header>{note.title}</Card.Header>
         <Card.Description>{note.text}</Card.Description>
       </Card.Content>
-      <Card.Content extra>
+      <Card.Content textAlign="center" extra>
         {note.labels.length > 0 &&
           note.labels.map(labelId => renderLabel(labelId))}
-        <Button basic color="blue">
+        <Button as={Link} color={note.color} to={"/note/" + note.id}>
           Note details
         </Button>
       </Card.Content>

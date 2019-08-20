@@ -4,8 +4,11 @@ import { Container } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { Card } from "semantic-ui-react";
 import { Grid } from "semantic-ui-react";
+import { Route, Link } from "react-router-dom";
 
 import { HeaderComponent as Header } from "./components/Header";
+import {HomePage} from "./components/HomePage";
+import { NotePage } from "./components/NotePage";
 import { SideBar } from "./components/SideBar";
 import { AddNoteCard } from "./components/AddNoteCard";
 import { NoteCard } from "./components/NoteCard";
@@ -16,21 +19,8 @@ function App() {
   return (
     <Container>
       <Header />
-      <Grid divided>
-        <Grid.Row>
-          <Grid.Column as="aside" width={4}>
-            <SideBar />
-          </Grid.Column>
-          <Grid.Column as="main" width={12}>
-            <Card.Group>
-              <AddNoteCard />
-              {notes.map(note => (
-                <NoteCard key={note.id} note={note} />
-              ))}
-            </Card.Group>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/note/:id" component={NotePage} />
     </Container>
   );
 }

@@ -7,6 +7,7 @@ import { v4 } from "node-uuid";
 
 import { addNote } from "../redux/actions/notes";
 import { colorOptions } from "../constants";
+import { generateCategoryOptions } from "../utils";
 
 export function AddNoteCard() {
   const [title, setTitle] = useState("");
@@ -17,40 +18,6 @@ export function AddNoteCard() {
   const categories = useSelector(state => state.categories);
   const labels = useSelector(state => state.labels);
   const dispatch = useDispatch();
-
-  const categoriesOptions = [];
-
-  const recursion = subCategories => {
-    subCategories.forEach(subCategoryId => {
-      const subCategory = categories.find(
-        category => category.id === subCategoryId
-      );
-      categoriesOptions.push({
-        key: subCategory.id,
-        text: subCategory.name,
-        value: subCategory.id
-      });
-      if (subCategory.hasOwnProperty("subCategories")) {
-        recursion(subCategory.subCategories);
-      }
-    });
-  };
-
-  const categoryList = () => {
-    categories
-      .filter(category => !category.hasOwnProperty("parentId"))
-      .forEach(category => {
-        categoriesOptions.push({
-          key: category.id,
-          text: category.name,
-          value: category.id
-        });
-        if (category.hasOwnProperty("subCategories")) {
-          recursion(category.subCategories);
-        }
-      });
-    return categoriesOptions;
-  };
 
   const addNoteHandler = () => {
     dispatch(
@@ -93,6 +60,7 @@ export function AddNoteCard() {
             options={colorOptions}
             selection
             fluid
+            labeled
             placeholder="Color"
             onChange={(e, data) => setColor(data.value)}
           />
@@ -102,7 +70,7 @@ export function AddNoteCard() {
             multiple
             search
             selection
-            options={categoryList()}
+            options={generateCategoryOptions(categories)}
             value={noteCategories}
             onChange={(e, data) => setNoteCategories(data.value)}
           />

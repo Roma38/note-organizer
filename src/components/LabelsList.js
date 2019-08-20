@@ -36,7 +36,7 @@ export function LabelsList() {
         <form onSubmit={addLabelHandler}>
           <Input
             value={labelName}
-            placeholder="Category name"
+            placeholder="Label name"
             onChange={(e, data) => setLabelName(data.value)}
           />
           <Button basic color="blue" content="Add" disabled={!labelName} />
