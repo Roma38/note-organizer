@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card } from "semantic-ui-react";
-import { Input } from "semantic-ui-react";
+import { Button, Card, Input, TextArea, Form } from "semantic-ui-react";
 import { Dropdown } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "node-uuid";
@@ -38,7 +37,7 @@ export function AddNoteCard() {
   };
 
   return (
-    <Card color={color}>
+    <Card as={Form} onSubmit={addNoteHandler} color={color}>
       <Card.Content>
         <Card.Header>
           <Input
@@ -49,13 +48,14 @@ export function AddNoteCard() {
           />
         </Card.Header>
         <Card.Description>
-          <Input
+          <TextArea
+            className="card-input"
             value={text}
             placeholder="Text"
-            fluid
             onChange={(e, data) => setText(data.value)}
           />
           <Dropdown
+            className="card-input"
             value={color}
             options={colorOptions}
             selection
@@ -65,6 +65,7 @@ export function AddNoteCard() {
             onChange={(e, data) => setColor(data.value)}
           />
           <Dropdown
+            className="card-input"
             placeholder="Category"
             fluid
             multiple
@@ -75,6 +76,7 @@ export function AddNoteCard() {
             onChange={(e, data) => setNoteCategories(data.value)}
           />
           <Dropdown
+            className="card-input"
             placeholder="Label"
             fluid
             multiple
@@ -93,12 +95,10 @@ export function AddNoteCard() {
       <Card.Content extra>
         <Button
           disabled={text ? false : true}
-          basic
-          color="blue"
-          onClick={addNoteHandler}
-        >
-          Add Note
-        </Button>
+          color={color}
+          //onClick={addNoteHandler}
+          content="Add Note"
+        />
       </Card.Content>
     </Card>
   );

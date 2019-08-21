@@ -1,23 +1,34 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Card } from "semantic-ui-react";
-import { Grid } from "semantic-ui-react";
+import { useSelector, useDispatch } from "react-redux";
+import { Card, Button, Grid } from "semantic-ui-react";
 
 import { SideBar } from "./SideBar";
 import { AddNoteCard } from "./AddNoteCard";
 import { NoteCard } from "./NoteCard";
+import { setFilter } from "../redux/actions/notesFilter";
 
 export function HomePage() {
   const notes = useSelector(state => state.notes);
   const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  const removeFilterHandler = () => dispatch(setFilter({}));
 
   return (
-    <Grid divided>
-      <Grid.Row>
-        <Grid.Column as="aside" width={4}>
+    <Grid divided className="wrapper">
+      <Grid.Row className="wrapper">
+        <Grid.Column as="aside" width={4} className="wrapper">
           <SideBar />
         </Grid.Column>
-        <Grid.Column as="main" width={12}>
+        <Grid.Column as="main" width={12} className="wrapper">
+          {filter.type && (
+            <Button
+              className="remove-filter-button"
+              //color="blue"
+              content="Remove filter"
+              onClick={removeFilterHandler}
+            />
+          )}
           <Card.Group>
             <AddNoteCard />
             {notes

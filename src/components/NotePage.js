@@ -8,7 +8,9 @@ import {
   Label,
   Button,
   Input,
-  Dropdown
+  Dropdown,
+  TextArea,
+  Form
 } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -38,8 +40,13 @@ export function NotePage({ match }) {
   };
 
   return (
-    <Container text>
-      <Segment color={note.color} textAlign="center">
+    <Container text textAlign="center">
+      <Segment
+        as={Form}
+        onSubmit={handleSaveChanges}
+        color={note.color}
+        textAlign="center"
+      >
         <Header as="h2" textAlign="center">
           {isEditing ? (
             <Input
@@ -52,7 +59,7 @@ export function NotePage({ match }) {
           )}
         </Header>
         {isEditing ? (
-          <Input // TODO наверное, нужно использовать textarea
+          <TextArea
             value={text}
             placeholder="Text"
             onChange={(e, data) => setText(data.value)}
@@ -60,8 +67,7 @@ export function NotePage({ match }) {
         ) : (
           <p>{note.text}</p>
         )}
-        {(note.categories.length > 0 || note.labels.length || isEditing) >
-          0 && (
+        {(note.categories.length || note.labels.length || isEditing) && (
           <Divider horizontal>
             <Icon name="tag" size="massive" />
           </Divider>
@@ -112,36 +118,41 @@ export function NotePage({ match }) {
           ))
         )}
         <Header as="h4" textAlign="center" content="Color:" />
-        <Dropdown
-          value={color}
-          options={colorOptions}
-          selection
-          labeled
-          placeholder="Color"
-          onChange={(e, data) => setColor(data.value)}
-        />
+        {isEditing ? (
+          <Dropdown
+            value={color}
+            options={colorOptions}
+            selection
+            labeled
+            placeholder="Color"
+            onChange={(e, data) => setColor(data.value)}
+          />
+        ) : (
+          <>
+            {note.color}
+            <Label circular color={note.color} empty />
+          </>
+        )}
+
         <Divider />
         {isEditing && (
-          <Button
-            onClick={handleSaveChanges}
-            color={note.color}
-            basic
-            content="Save"
-          />
+          <Button type="submit" color={note.color} basic content="Save" />
         )}
         <Button
+          type="button"
           onClick={() => setIsEditing(!isEditing)}
           color={note.color}
           basic={!isEditing}
           content={isEditing ? "Cancel" : "Edit note"}
         />
-        <Button
-          as={Link}
-          to="/"
-          color={note.color}
-          content="Back to Home page"
-        />
       </Segment>
+      <Button
+        as={Link}
+        to="/"
+        color={note.color}
+        icon="arrow left"
+        content="Back to Home page"
+      />
     </Container>
   );
 }

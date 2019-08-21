@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 } from "node-uuid";
-import { Button, Popup, Input, Icon } from "semantic-ui-react";
+import { Button, Popup, Input, Icon, Message } from "semantic-ui-react";
 
 import { addCategory } from "../redux/actions/categories";
 
@@ -25,7 +25,6 @@ export function AddSubCategoryPopup({ parentId }) {
   return (
     <>
       <Popup
-        /* onClick={e => e.stopPropagation()} */
         content="Add subcategory"
         trigger={
           <Icon
@@ -37,7 +36,9 @@ export function AddSubCategoryPopup({ parentId }) {
         }
       />
       {isPopupOpen && (
-        <form
+        <Message
+          className="category-form"
+          as="form"
           onSubmit={addCategoryHandler}
           onClick={e => e.stopPropagation()}
         >
@@ -46,8 +47,24 @@ export function AddSubCategoryPopup({ parentId }) {
             placeholder="Category name"
             onChange={(e, data) => setCategoryName(data.value)}
           />
-          <Button basic color="blue" content="Add" disabled={!categoryName} />
-        </form>
+          <div className="button-group">
+            <Button
+              compact
+              type="submit"
+              basic
+              color="blue"
+              content="Add"
+              disabled={!categoryName}
+            />
+            <Button
+              compact
+              basic
+              color="blue"
+              content="Cancel"
+              onClick={e => setIsPopupOpen(false)}
+            />
+          </div>
+        </Message>
       )}
     </>
   );

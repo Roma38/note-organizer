@@ -1,19 +1,77 @@
-.App {
+.app {
+  min-height: 100vh;
+  height: 1px;
+}
+
+.header {
+  padding: 15px 0;
+}
+
+main {
   text-align: center;
+}
+
+.sidebar-column {
+  background-color: black;
+}
+
+.wrapper {
+  min-height: calc(100%-62px); /* - header heaight */
 }
 
 .icon.category__popup {
   display: none;
 }
 
-.category:hover>.icon.category__popup {
+.category:hover > .icon.category__popup {
   display: inline-block;
 }
 
-.category span, .label-name {
+.category span,
+.label-name {
   cursor: pointer;
 }
 
-.category span:hover, .label-name:hover {
+.category span:hover,
+.label-name:hover {
   color: black;
 }
+
+.card-input {
+  margin-top: 10px;
+}
+
+.label-tag.ui.label {
+  margin-bottom: 7px;
+}
+
+.remove-filter-button.ui.button {
+  margin-bottom: 10px;
+}
+
+.category-form {
+  z-index: 1;
+  position: absolute;
+}
+
+.button-group {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.card:hover .delete-icon {
+  display: inline-block;
+}
+
+.delete-icon.icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: none;
+}
+
+.semanti-sidebar {
+  background-color: #efd792;
+  padding-left: 10px; 
+}
+

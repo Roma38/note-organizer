@@ -3,7 +3,7 @@ import { Header } from "semantic-ui-react";
 
 export function HeaderComponent() {
   return (
-    <header>
+    <header className="header">
       <Header as="h1" textAlign="center">Note organizer</Header>
     </header>
   );
