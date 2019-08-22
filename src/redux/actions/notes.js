@@ -6,12 +6,12 @@ export const ADD_LABEL_TO_NOTE = "ADD_LABEL_TO_NOTE";
 
 export const addNote = payload => ({
   type: ADD_NOTE,
-  payload // {id, title, text, color, labels = [], categories = [], wasAdded = new Date}
+  payload // {id, title, text, color, labels = [], categories = []}
 });
 
 export const editNote = payload => ({
   type: EDIT_NOTE,
-  payload // {id, title, text, color, wasUpdated = new Date}
+  payload // {id, title, text, color}
 });
 
 export const deleteNote = payload => ({

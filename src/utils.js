@@ -1,18 +1,25 @@
 export const generateCategoryOptions = categories => {
   const categoriesOptions = [];
+  let divider = "- ";
 
-  function recursion(subCategories, categories, categoriesOptions) {
+  function recursion(subCategories, categories, categoriesOptions, divider) {
     subCategories.forEach(subCategoryId => {
       const subCategory = categories.find(
         category => category.id === subCategoryId
       );
       categoriesOptions.push({
         key: subCategory.id,
-        text: subCategory.name,
+        text: divider + subCategory.name,
         value: subCategory.id
       });
       if (subCategory.hasOwnProperty("subCategories")) {
-        recursion(subCategory.subCategories, categories, categoriesOptions);
+        let newDivider = divider + "- ";
+        recursion(
+          subCategory.subCategories,
+          categories,
+          categoriesOptions,
+          newDivider
+        );
       }
     });
   }
@@ -26,7 +33,12 @@ export const generateCategoryOptions = categories => {
         value: category.id
       });
       if (category.hasOwnProperty("subCategories")) {
-        recursion(category.subCategories, categories, categoriesOptions);
+        recursion(
+          category.subCategories,
+          categories,
+          categoriesOptions,
+          divider
+        );
       }
     });
   return categoriesOptions;
@@ -34,23 +46,23 @@ export const generateCategoryOptions = categories => {
 
 export const filterNotes = (notes, filter, categories) => {
   if (!filter.type) return notes;
+
   if (filter.type === "labels") {
     return notes.filter(note => note.labels.includes(filter.id));
   }
 
   if (filter.type === "categories") {
-    function recursion(category) {
-      categoriesIds = categoriesIds.concat(category.subCategories);
-      category.subCategories.forEach(id => {
-        const subCategory = categories.find(category => (category.id = id));
-        if (category.hasOwnProperty("subCategories")) recursion(subCategory);
-      });
-    }
-
     let categoriesIds = [filter.id];
-    const category = categories.find(category => (category.id = filter.id));
 
-    if (category.hasOwnProperty("subCategories")) recursion(category);
+    for (let i = 0; i < categoriesIds.length; i++) {
+      const category = categories.find(
+        // eslint-disable-next-line no-loop-func
+        item => item.id === categoriesIds[i]
+      );
+      if (category.subCategories) {
+        categoriesIds = [...categoriesIds, ...category.subCategories];
+      }
+    }
 
     return notes.filter(note => {
       for (let index = 0; index < categoriesIds.length; index++) {

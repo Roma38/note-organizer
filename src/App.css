@@ -1,22 +1,18 @@
-.app {
-  min-height: 100vh;
-  height: 1px;
-}
-
-.header {
+.app-header {
   padding: 15px 0;
 }
 
 main {
   text-align: center;
+  min-height: calc(100vh - 76px);
+}
+
+.grid-row.row {
+  padding: 0;
 }
 
 .sidebar-column {
   background-color: black;
-}
-
-.wrapper {
-  min-height: calc(100%-62px); /* - header heaight */
 }
 
 .icon.category__popup {
@@ -72,6 +68,70 @@ main {
 
 .semanti-sidebar {
   background-color: #efd792;
-  padding-left: 10px; 
+  padding-left: 10px;
 }
 
+.sublist {
+  margin-left: 10px;
+}
+
+/*************окрашиваю хедер карточки в цвет заметки ***************/
+
+.note-card.ui.card {
+  overflow: hidden;
+}
+
+.ui.card > .content > .header.card-header {
+  margin: 0 -14px 0;
+  color: white;
+}
+
+.card-header {
+  margin: 0 -14px 0;
+  background-color: gray;
+  padding: 15px;
+}
+
+.ui.cards > .card > .card-content.content {
+  padding-top: 0;
+}
+
+.red-color.card-header {
+  background-color: #db2828;
+}
+.orange-color.card-header {
+  background-color: #f2711c;
+}
+.yellow-color.card-header {
+  background-color: #fbbd08;
+}
+.olive-color.card-header {
+  background-color: #b5cc18;
+}
+.green-color.card-header {
+  background-color: #21ba45;
+}
+.teal-color.card-header {
+  background-color: #00b5ad;
+}
+.blue-color.card-header {
+  background-color: #2185d0;
+}
+.violet-color.card-header {
+  background-color: #6435c9;
+}
+.purple-color.card-header {
+  background-color: #a333c8;
+}
+.pink-color.card-header {
+  background-color: #e03997;
+}
+.brown-color.card-header {
+  background-color: #a5673f;
+}
+.grey-color.card-header {
+  background-color: #767676;
+}
+.black-color.card-header {
+  background-color: #1b1c1d;
+}

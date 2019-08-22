@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Label, Icon } from "semantic-ui-react";
+import { Card, Label, Icon } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -8,8 +8,8 @@ import { deleteNote } from "../redux/actions/notes";
 
 export function NoteCard(props) {
   const labels = useSelector(state => state.labels);
-  const dispatch = useDispatch();
   const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
 
   const { note } = props;
 
@@ -36,23 +36,32 @@ export function NoteCard(props) {
     );
   };
 
-  const deleteHandle = id =>
+  const deleteHandle = (event, id) => {
+    event.preventDefault();
     // eslint-disable-next-line no-restricted-globals
-    confirm("Are you sure want to delete this card?")
-      ? dispatch(deleteNote(note.id))
-      : null;
+    if (confirm("Are you sure want to delete this card?"))
+      dispatch(deleteNote(id));
+  };
 
   return (
-    <Card color={note.color}>
-      <Card.Content>
-        <Card.Header textAlign="center">
+    <Card color={note.color} className="note-card">
+      <Card.Content
+        as={Link}
+        to={"/note/" + note.id}
+        title="Note details"
+        className="card-content"
+      >
+        <Card.Header
+          textAlign="center"
+          className={`card-header ${note.color}-color`}
+        >
           {note.title}
           <Icon
             className="delete-icon"
             name="delete"
             link
             title="Delete card"
-            onClick={() => deleteHandle(note.id)}
+            onClick={e => deleteHandle(e, note.id)}
           />
         </Card.Header>
         <Card.Description textAlign="left">{note.text}</Card.Description>
@@ -61,9 +70,6 @@ export function NoteCard(props) {
         {note.labels.length > 0 && (
           <div>{note.labels.map(labelId => renderLabel(labelId))}</div>
         )}
-        <Button as={Link} color={note.color} to={"/note/" + note.id}>
-          Note details
-        </Button>
       </Card.Content>
     </Card>
   );

@@ -91,12 +91,11 @@ export function AddNoteCard() {
           />
         </Card.Description>
       </Card.Content>
-      {/* {id, title, text, color, labels = [], categories = [], wasAdded = new Date} */}
       <Card.Content extra>
         <Button
+          type="submit"
           disabled={text ? false : true}
           color={color}
-          //onClick={addNoteHandler}
           content="Add Note"
         />
       </Card.Content>

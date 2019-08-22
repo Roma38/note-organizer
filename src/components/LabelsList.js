@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { List, Button, Input, Popup } from "semantic-ui-react";
+import { List, Button, Input, Popup, Form } from "semantic-ui-react";
 import { v4 } from "node-uuid";
 
 import { addLabel } from "../redux/actions/labels";
@@ -13,10 +13,11 @@ export function LabelsList() {
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  const addLabelHandler = e => {
-    e.preventDefault();
+  const addLabelHandler = event => {
+    event.preventDefault();
     dispatch(addLabel({ id: v4(), name: labelName }));
     setLabelName("");
+    setIsPopupOpen(false);
   };
 
   return (
@@ -45,19 +46,33 @@ export function LabelsList() {
       </List>
       <Popup
         on="click"
-        trigger={<Button basic color="blue" content="Add label" />}
+        trigger={<Button basic content="Add label" />}
         open={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
         onOpen={() => setIsPopupOpen(true)}
       >
-        <form onSubmit={addLabelHandler}>
+        <Form className="category-form" onSubmit={addLabelHandler}>
           <Input
             value={labelName}
             placeholder="Label name"
             onChange={(e, data) => setLabelName(data.value)}
           />
-          <Button basic color="blue" content="Add" disabled={!labelName} />
-        </form>
+          <div className="button-group">
+            <Button
+              compact
+              type="submit"
+              basic
+              content="Add"
+              disabled={!labelName}
+            />
+            <Button
+              compact
+              basic
+              content="Cancel"
+              onClick={() => setIsPopupOpen(false)}
+            />
+          </div>
+        </Form>
       </Popup>
     </>
   );

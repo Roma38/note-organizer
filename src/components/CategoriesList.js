@@ -29,7 +29,7 @@ export function CategoriesList() {
       >
         <List.Icon name="folder" />
         <List.Content className="category">
-          <span onClick={event => setFilterHandler(event, category.id)}>
+          <span onClick={e => setFilterHandler(e, category.id)}>
             {category.name}
           </span>
           <AddSubCategoryPopup parentId={category.id} />
@@ -58,6 +58,7 @@ export function CategoriesList() {
               key={category.id}
               active={filter.type === "categories" && category.id === filter.id}
             >
+              <List.Icon name="folder" />
               <List.Content className="category">
                 <span onClick={event => setFilterHandler(event, category.id)}>
                   {category.name}

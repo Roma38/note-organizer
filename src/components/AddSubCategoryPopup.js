@@ -52,16 +52,14 @@ export function AddSubCategoryPopup({ parentId }) {
               compact
               type="submit"
               basic
-              color="blue"
               content="Add"
               disabled={!categoryName}
             />
             <Button
               compact
               basic
-              color="blue"
               content="Cancel"
-              onClick={e => setIsPopupOpen(false)}
+              onClick={() => setIsPopupOpen(false)}
             />
           </div>
         </Message>

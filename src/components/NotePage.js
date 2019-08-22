@@ -34,7 +34,7 @@ export function NotePage({ match }) {
   const [labels, setLabels] = useState(note.labels);
   const dispatch = useDispatch();
 
-  const handleSaveChanges = () => {
+  const saveChangesHandler = () => {
     dispatch(editNote({ id: note.id, title, text, color, categories, labels }));
     setIsEditing(false);
   };
@@ -43,7 +43,7 @@ export function NotePage({ match }) {
     <Container text textAlign="center">
       <Segment
         as={Form}
-        onSubmit={handleSaveChanges}
+        onSubmit={saveChangesHandler}
         color={note.color}
         textAlign="center"
       >

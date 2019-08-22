@@ -1,5 +1,5 @@
 import { ADD_LABEL } from "../actions/labels";
-import {defaultLabels} from "../../constants"
+import { defaultLabels } from "../../constants";
 
 const initialState = defaultLabels;
 
